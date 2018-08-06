@@ -1,5 +1,28 @@
 # Sequence of changes to the project in a reverse chronological order
 
+
+### 3. Introduce Parsers
+
+Parsers are functions that convert strings to some meaningful data. For example, we could use `Int.parse`
+to convert a `String` to `Int`. Or `DateTime.parse` to get `DateTime`.
+
+When we have a simple parser, it consumes the whole string and we cannot combine a few parsers to produce
+another more powerful parser. In parser combinators libraries, individual parsers consumes only some part of string
+and return the rest of the string for further processing:
+
+    type Parser[A] = String => (A, String)
+
+For example, `Parser[Int]` will scan the given string until there are digits and convert all found digits
+to an integer. It'll stop conversion when a non digit is encountered. We can pass the rest of the input string
+to another parser.
+
+When we try to parse a string that has something different form what we expect, the parser will return failure
+instead of the result. So, `Parser` type is slightly different -
+
+    type Parser[A] = String => Failure | Success (A, String)
+
+Let's see a couple of examples (`HelloWorld.scala` and `HelloWorldTest.scala`).
+
 ### 2. Add library dependency
 
 There are a lot of parser combinators libraries for Scala. We'll use FastParse (we could also use Parboiled2,
