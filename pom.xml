@@ -21,7 +21,6 @@
     <fastparse.version>1.0.0</fastparse.version>
     <scala.version>2.12.6</scala.version>
     <scala.compat.version>2.12</scala.compat.version>
-    <spec2.version>4.2.0</spec2.version>
   </properties>
 
   <dependencies>
@@ -47,18 +46,6 @@
       <groupId>org.scalatest</groupId>
       <artifactId>scalatest_${scala.compat.version}</artifactId>
       <version>3.0.5</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.specs2</groupId>
-      <artifactId>specs2-core_${scala.compat.version}</artifactId>
-      <version>${spec2.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.specs2</groupId>
-      <artifactId>specs2-junit_${scala.compat.version}</artifactId>
-      <version>${spec2.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -105,7 +92,7 @@
           <junitxml>.</junitxml>
           <filereports>TestSuiteReport.txt</filereports>
           <!-- Comma separated list of JUnit test class names to execute -->
-          <jUnitClasses>samples.AppTest</jUnitClasses>
+          <jUnitClasses>org.example.parsers.ArithmeticExpressionParserTest,org.example.parsers.HelloWorldTest</jUnitClasses>
         </configuration>
         <executions>
           <execution>
