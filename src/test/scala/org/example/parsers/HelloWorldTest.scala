@@ -1,8 +1,11 @@
 package org.example.parsers
 
 import fastparse.all._
+import org.junit.runner.RunWith
+import org.scalatest.junit.JUnitRunner
 import org.scalatest.FlatSpec
 
+@RunWith(classOf[JUnitRunner])
 class HelloWorldTest extends FlatSpec {
 
   behavior of "HelloWorld"
