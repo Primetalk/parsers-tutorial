@@ -4,12 +4,12 @@
   <artifactId>parsers-tutorial</artifactId>
   <version>1.0-SNAPSHOT</version>
   <name>${project.artifactId}</name>
-  <description>My wonderfull scala app</description>
+  <description>Parser combinators tutorial project</description>
   <inceptionYear>2018</inceptionYear>
   <licenses>
     <license>
-      <name>My License</name>
-      <url>http://....</url>
+      <name>MIT License</name>
+      <url>https://github.com/Primetalk/parsers-tutorial/blob/master/LICENSE</url>
       <distribution>repo</distribution>
     </license>
   </licenses>
