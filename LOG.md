@@ -1,5 +1,11 @@
 # Sequence of changes to the project in a reverse chronological order
 
+### 5. Construct new parsers from smaller ones
+
+The list of basic combinators are in `ParserCombinatorsOverview.scala`.
+Using these building blocks we may create more
+complex parsers from smaller.
+
 ### 4. Parse arithmetic expressions
 
 Parsers produce some value. Usually for representing complex values an algebraic data type is used.
