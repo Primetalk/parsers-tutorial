@@ -13,3 +13,8 @@ case object Divide   extends Operation
 case object Plus     extends Operation
 case object Minus    extends Operation
 
+case class Identifier(id: String)
+
+/** Application of a function to one argument. */
+case class FunctionApplication1(functionId: Identifier, argument: ArithmeticExpression) extends ArithmeticExpression
+

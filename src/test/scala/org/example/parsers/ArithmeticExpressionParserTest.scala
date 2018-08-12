@@ -2,6 +2,7 @@ package org.example.parsers
 
 import fastparse.core.Parsed
 import org.example.evaluators.arithmetic
+import org.example.evaluators.arithmetic.IntFun
 import org.junit.runner.RunWith
 import org.scalatest.FlatSpec
 import org.scalatest.junit.JUnitRunner
@@ -25,26 +26,37 @@ class ArithmeticExpressionParserTest extends FlatSpec {
     )
   }
 
+  def parseExpression(e: String): ArithmeticExpression = {
+    expr.parse(e).get.value
+  }
+
   it should "expression" in {
     assert(
-      expr.parse("2*(3-4)") === Parsed.Success(
-        BinaryOpApplication(Multiply, Number(2), BinaryOpApplication(Minus, Number(3), Number(4))),
-        7)
+      parseExpression("2*(3-4)") ===
+        BinaryOpApplication(Multiply, Number(2), BinaryOpApplication(Minus, Number(3), Number(4)))
     )
   }
 
   it should "expression evaluation" in {
-    val e = expr.parse("((1+1*2)+(3*4*5))/3")
-    e.fold(
-      onFailure = { case (_, pos, extra) =>
-        fail(s"at pos $pos, left:$extra")
-      },
-      onSuccess = {
-        case (ar, pos) =>
-          val res = arithmetic.eval(ar)
-          assert(res === 21)
-      }
-    )
+    val ar = parseExpression("((1+1*2)+(3*4*5))/3")
+    val res = arithmetic.eval()(ar)
+    assert(res === 21)
   }
 
+  def intSqrt(arg: Int): Int =
+    math.sqrt(arg.toDouble).toInt
+
+  val functions: Map[Identifier, IntFun] = Map(Identifier("sqrt") -> intSqrt)
+
+  it should "parse simple function call" in {
+    val ar = parseExpression("sqrt(16)")
+    val res = arithmetic.eval(functions)(ar)
+    assert(res === 4)
+  }
+
+  it should "parse complex expression with function calls" in {
+    val ar = parseExpression("sqrt(4*(2+2))-4")
+    val res = arithmetic.eval(functions)(ar)
+    assert(res === 0)
+  }
 }

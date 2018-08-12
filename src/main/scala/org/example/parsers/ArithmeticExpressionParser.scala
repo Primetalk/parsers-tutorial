@@ -1,5 +1,7 @@
 package org.example.parsers
 
+import fastparse.CharPredicates.{isDigit, isLetter}
+
 object ArithmeticExpressionParser {
   import fastparse.all._
 
@@ -14,8 +16,17 @@ object ArithmeticExpressionParser {
   val number: P[Number]               = P( CharIn('0' to '9').rep(min = 1).! ).map(_.toInt).map(Number)
   /** An expression in parentheses. */
   val parens: P[ArithmeticExpression] = P( "(" ~/ addSub ~ ")" )
+  /** An identifier of a function.
+    * It starts with a letter and can contain a few letters or digits afterwards.
+    */
+  val identifier: P[Identifier]       = P(
+    ( CharPred(c => isLetter(c)) ~
+      CharPred(c => isLetter(c)
+                 || isDigit (c) ).rep).!
+  ).map(Identifier)
+  val funApp: P[FunctionApplication1] = P( identifier ~ "(" ~/ addSub ~ ")" ).map(FunctionApplication1.tupled)
   /** "Factor" is an atomic element of arithmetic expression. */
-  val factor: P[ArithmeticExpression] = P( number | parens )
+  val factor: P[ArithmeticExpression] = P( number | parens | funApp )
 
   // Parsing basic arithmetic operations
   val plus: P[Operation]              = P( CharIn("+").! ).map(_ => Plus)

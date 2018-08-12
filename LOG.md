@@ -1,5 +1,15 @@
 # Sequence of changes to the project in a reverse chronological order
 
+### 6. Extend parser with support for functions
+
+Our arithmetic parser supports just numbers. 
+How difficult it is to add support for functions?
+First of all we should expand our expression model with functions. 
+A typical simple function has a name (identifier) 
+and takes one argument.
+We parse it as an identifier that is followed by parentheses with another
+expression inside.
+
 ### 5. Construct new parsers from smaller ones
 
 The list of basic combinators are in `ParserCombinatorsOverview.scala`.
